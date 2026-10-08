@@ -1,8 +1,8 @@
 # TP\_GestiondeAcopiodeGranos\_LautaroNavarro-EliasKorell
 
 
-TP Final – Gestión de Acopio de Granos
----
+
+## TP Final – Gestión de Acopio de Granos
 
 
 
@@ -10,7 +10,7 @@ TP Final – Gestión de Acopio de Granos
 
 #### 
 
-#### Descripción del sistema
+## Descripción del sistema
 
 
 
@@ -26,7 +26,7 @@ La aplicación se desarrollará en Windows Forms, utilizando Entity Framework Co
 
 
 
-#### Entidades principales
+## Entidades principales
 
 
 
@@ -40,7 +40,7 @@ La aplicación se desarrollará en Windows Forms, utilizando Entity Framework Co
 
 
 
-#### Objetivos
+## Objetivos
 
 
 
@@ -51,7 +51,7 @@ La aplicación se desarrollará en Windows Forms, utilizando Entity Framework Co
 
 #### 
 
-#### Funcionalidades previstas
+## Funcionalidades previstas
 
 
 
@@ -83,7 +83,7 @@ Alta, baja, modificación y consulta de las descargas. Al registrar o modificar 
 
 
 
-#### Reportes
+## Reportes
 
 
 
@@ -95,7 +95,7 @@ Alta, baja, modificación y consulta de las descargas. Al registrar o modificar 
 
 
 
-#### Integración de las capas
+## Integración de las capas
 
 
 
@@ -124,7 +124,7 @@ Para ilustrar cómo interactúan ambas capas, tomamos como ejemplo el registro d
 
 #### 
 
-#### Tecnologías utilizadas
+## Tecnologías utilizadas
 
 
 
