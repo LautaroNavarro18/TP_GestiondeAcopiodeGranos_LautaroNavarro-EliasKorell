@@ -14,7 +14,7 @@
 
 
 
-El presente trabajo consiste en el desarrollo de una aplicación de escritorio destinada a una planta de acopio de granos. El sistema permite registrar los camiones que descargan cereal en la planta, conocer cuánto entregó cada productor y llevar un control de la calidad de lo que se recibe.
+El presente trabajo consiste en el desarrollo de una aplicación de escritorio destinada a una planta de acopio de granos. El sistema permite registrar los camiones que descargan cereal en la planta, conocer cuánto entregó cada productor y llevar un control de la calidad de lo que se recibe. Además, permite registrar los despachos de cereal que la planta realiza hacia sus clientes, para saber cuánto se le envió a cada uno y cuánto cereal queda disponible en la planta.
 
 
 
@@ -33,10 +33,12 @@ La aplicación se desarrollará en Windows Forms, utilizando Entity Framework Co
 1. Productor: nombre, CUIT, teléfono y localidad.
 2. Cereal: nombre (soja, maíz, trigo, etc.) y humedad máxima aceptada.
 3. Descarga: fecha, productor, cereal, patente del camión, kilos brutos, tara, humedad y estado (aceptada o rechazada).
+4. Cliente: nombre o razón social, CUIT, teléfono y localidad.
+5. Despacho: fecha, cliente, cereal, patente del camión, kilos brutos y tara.
 
 
 
-**Los kilos netos de cada descarga no se almacenan, sino que se calculan como la diferencia entre los kilos brutos y la tara.**
+**Los kilos netos de cada descarga y de cada despacho no se almacenan, sino que se calculan como la diferencia entre los kilos brutos y la tara.**
 
 
 
@@ -44,10 +46,12 @@ La aplicación se desarrollará en Windows Forms, utilizando Entity Framework Co
 
 
 
-* Registrar de forma ordenada a los productores y los cereales que recibe la planta.
+* Registrar de forma ordenada a los productores, los clientes y los cereales que maneja la planta.
 * Registrar cada descarga de cereal con sus datos de peso y humedad.
 * Controlar la calidad de lo recibido, rechazando las descargas que superen la humedad máxima permitida.
-* Obtener reportes sobre lo entregado por cada productor y lo recibido por la planta.
+* Registrar cada despacho de cereal hacia un cliente con sus datos de peso.
+* Controlar el stock de cada cereal, evitando despachar más de lo que hay disponible en la planta.
+* Obtener reportes sobre lo entregado por cada productor, lo recibido por la planta y lo despachado a cada cliente.
 
 #### 
 
@@ -83,6 +87,26 @@ Alta, baja, modificación y consulta de las descargas. Al registrar o modificar 
 
 
 
+###### Gestión de Clientes
+
+
+
+Alta, baja, modificación y consulta de los clientes a los que la planta despacha cereal. Al igual que con los productores, la baja es lógica: el cliente queda marcado como inactivo para conservar el historial de sus despachos.
+
+
+
+###### Gestión de Despachos
+
+
+
+Alta, baja, modificación y consulta de los despachos. Al registrar o modificar un despacho, el sistema verifica que haya stock suficiente del cereal seleccionado. El stock de cada cereal no se almacena, sino que se calcula como la diferencia entre los kilos netos de las descargas aceptadas y los kilos netos ya despachados.
+
+
+
+**Si los kilos netos del despacho superan el stock disponible del cereal, el despacho no se registra.**
+
+
+
 ## Reportes
 
 
@@ -92,6 +116,8 @@ Alta, baja, modificación y consulta de las descargas. Al registrar o modificar 
 3. Cantidad de descargas realizadas por mes.
 4. Descargas rechazadas por exceso de humedad.
 5. Historial de descargas de un productor seleccionado, con el detalle de cada una (fecha, cereal, patente, kilos netos, humedad y estado).
+6. Total de kilos despachados por cliente.
+7. Stock disponible de cada cereal en la planta.
 
 
 
