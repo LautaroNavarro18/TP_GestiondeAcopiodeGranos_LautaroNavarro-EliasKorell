@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AccesoDatos.Models
+namespace AccesoDatos.Entidades
 {
     public class Productor
     {
