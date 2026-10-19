@@ -4,7 +4,10 @@ using System.Text;
 
 namespace AccesoDatos.Reportes
 {
-    internal class CerealKilos
+     public class CerealKilos
     {
+        public string Cereal { get; set; }
+        public int Descargas { get; set; }
+        public int KilosNetos { get; set; }
     }
 }

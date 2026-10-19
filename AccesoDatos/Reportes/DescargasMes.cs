@@ -4,7 +4,10 @@ using System.Text;
 
 namespace AccesoDatos.Reportes
 {
-    internal class DescargasMes
+    public class DescargasMes
     {
+        public string Mes { get; set; }
+        public int Cantidad { get; set; }
+        public int KilosNetos { get; set; }
     }
 }
