@@ -8,6 +8,12 @@ namespace AccesoDatos.Repositorios
         public void Agregar(Despacho despacho)
         {
             using var context = new AcopioContext();
+            int stock = CalculoStock
+                .StockDisponible(context, despacho.CerealId);
+
+            if (despacho.KilosNetos() > stock)
+                throw new InvalidOperationException("No hay stock suficiente del cereal seleccionado para registrar el despacho.");
+
             context.Despachos
                 .Add(despacho);
             context
@@ -17,6 +23,19 @@ namespace AccesoDatos.Repositorios
         public void Modificar(Despacho despacho)
         {
             using var context = new AcopioContext();
+            Despacho original = context.Despachos
+                .AsNoTracking()
+                .FirstOrDefault(d => d.Id == despacho.Id);
+
+            int stock = CalculoStock
+                .StockDisponible(context, despacho.CerealId);
+
+            if (original.CerealId == despacho.CerealId)
+                stock += original.KilosNetos();
+
+            if (despacho.KilosNetos() > stock)
+                throw new InvalidOperationException("No hay stock suficiente del cereal seleccionado para modificar el despacho.");
+
             context.Despachos
                 .Update(despacho);
             context

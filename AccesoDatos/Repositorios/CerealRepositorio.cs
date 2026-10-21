@@ -49,5 +49,12 @@ namespace AccesoDatos.Repositorios
                 .Where(c => c.Activo)
                 .ToList();
         }
+
+        public int StockDisponible(int cerealId)
+        {
+            using var context = new AcopioContext();
+            return CalculoStock
+                .StockDisponible(context, cerealId);
+        }
     }
 }

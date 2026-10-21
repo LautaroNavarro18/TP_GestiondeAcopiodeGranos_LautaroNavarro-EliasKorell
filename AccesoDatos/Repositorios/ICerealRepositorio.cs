@@ -9,5 +9,6 @@ namespace AccesoDatos.Repositorios
         void Eliminar(int id);
         Cereal ObtenerPorId(int id);
         List<Cereal> ObtenerTodos();
+        int StockDisponible(int cerealId);
     }
 }
