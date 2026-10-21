@@ -127,24 +127,22 @@ namespace AccesoDatos.Repositorios
                 .ToList();
         }
 
-        public List<StockCereal> StockPorCereal()
+        public List<DespachoRealizado> DespachosRealizados()
         {
             using var context = new AcopioContext();
-            return context.Cereales
-                .Include(c => c.Descargas)
-                .Include(c => c.Despachos)
-                .Where(c => c.Activo)
+            return context.Despachos
+                .Include(d => d.Cliente)
+                .Include(d => d.Cereal)
+                .OrderByDescending(d => d.Fecha)
                 .ToList()
-                .Select(c => new StockCereal
+                .Select(d => new DespachoRealizado
                 {
-                    Cereal = c.Nombre,
-                    KilosRecibidos = c.Descargas
-                        .Where(d => d.Estado == EstadoDescarga.Aceptada)
-                        .Sum(d => d.KilosNetos()),
-                    KilosDespachados = c.Despachos.Sum(d => d.KilosNetos()),
-                    StockDisponible = c.StockDisponible()
+                    Fecha = d.Fecha,
+                    Cliente = d.Cliente.Nombre,
+                    Cereal = d.Cereal.Nombre,
+                    Patente = d.Patente,
+                    KilosNetos = d.KilosNetos()
                 })
-                .OrderBy(r => r.Cereal)
                 .ToList();
         }
     }

@@ -14,7 +14,7 @@ namespace AccesoDatos.Repositorios
         List<DescargaRechazada> DescargasRechazadas();
         List<HistorialDescarga> HistorialProductor(int productorId);
         List<ClienteKilos> KilosDespachadosPorCliente();
-        List<StockCereal> StockPorCereal();
+        List<DespachoRealizado> DespachosRealizados();
     }
 
 }
