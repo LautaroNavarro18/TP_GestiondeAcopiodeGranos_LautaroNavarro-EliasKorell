@@ -116,8 +116,8 @@ Alta, baja, modificación y consulta de los despachos. Al registrar o modificar 
 3. Cantidad de descargas realizadas por mes.
 4. Descargas rechazadas por exceso de humedad.
 5. Historial de descargas de un productor seleccionado, con el detalle de cada una (fecha, cereal, patente, kilos netos, humedad y estado).
-6. Total de kilos despachados por cliente.
-7. Stock disponible de cada cereal en la planta.
+6. Despachos realizados, con el detalle de cada uno (fecha, cliente, cereal, patente y kilos netos).
+7. Total de kilos despachados por cliente.
 
 
 
@@ -129,7 +129,7 @@ La solución está organizada en dos proyectos:
 
 
 
-* Biblioteca de clases: contiene las entidades del dominio, el contexto de datos (AcopioContext, que hereda de DbContext) y los repositorios encargados del acceso a la base de datos.
+* Biblioteca de clases: contiene las entidades del dominio, el contexto de datos (AcopioContext, que hereda de DbContext), los repositorios encargados del acceso a la base de datos, y la carpeta Reportes, con una clase por reporte que transporta únicamente los datos que éste muestra (no son tablas de la base), armadas por ReporteRepositorio a partir de consultas sobre las entidades.
 * Aplicación WinForms: contiene los formularios que conforman la interfaz gráfica y que hacen uso de la biblioteca de clases.
 
 
@@ -147,6 +147,18 @@ Para ilustrar cómo interactúan ambas capas, tomamos como ejemplo el registro d
 
 
 **De esta forma, la interfaz no accede directamente a la base de datos, sino que lo hace siempre a través de los repositorios definidos en la biblioteca de clases.**
+
+
+
+Otro ejemplo, que muestra cómo se aplica el control de stock, es el registro de un nuevo despacho:
+
+
+
+1. El usuario completa los datos del despacho en el formulario correspondiente.
+2. El formulario valida los datos ingresados y construye un objeto Despacho.
+3. Invoca al método Agregar(despacho) de DespachoRepositorio.
+4. El repositorio calcula el stock disponible del cereal seleccionado y lo compara con los kilos netos del despacho.
+5. Si el stock no alcanza, el repositorio no guarda el despacho y lanza una excepción con un mensaje que el formulario muestra en un MessageBox. Si alcanza, agrega el objeto al contexto y ejecuta SaveChanges().
 
 #### 
 
