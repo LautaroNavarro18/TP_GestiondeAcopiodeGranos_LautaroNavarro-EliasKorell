@@ -15,7 +15,7 @@ namespace AppWinForms
                 context.Database.Migrate();
             }
 
-            Application.Run(new FormProductores());
+            Application.Run(new FormPrincipal());
         }
     }
 }
