@@ -105,6 +105,7 @@ namespace AccesoDatos.Repositorios
                     Patente = d.Patente,
                     KilosNetos = d.KilosNetos(),
                     Humedad = d.Humedad,
+                    HumedadMaxima = d.Cereal.HumedadMaxima,
                     Estado = d.Estado.ToString()
                 })
                 .ToList();
