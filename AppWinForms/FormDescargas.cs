@@ -5,16 +5,19 @@ namespace AppWinForms
 {
     public partial class FormDescargas : Form
     {
-        private readonly IDescargaRepositorio _repositorio = new DescargaRepositorio();
-        private readonly IProductorRepositorio _productorRepositorio = new ProductorRepositorio();
-        private readonly ICerealRepositorio _cerealRepositorio = new CerealRepositorio();
+        private readonly IDescargaRepositorio _repositorio;
+        private readonly IProductorRepositorio _productorRepositorio;
+        private readonly ICerealRepositorio _cerealRepositorio;
 
         private List<Descarga> _descargas = new List<Descarga>();
         private int _idSeleccionado = 0;
 
-        public FormDescargas()
+        public FormDescargas(IDescargaRepositorio repositorio, IProductorRepositorio productorRepositorio, ICerealRepositorio cerealRepositorio)
         {
             InitializeComponent();
+            _repositorio = repositorio;
+            _productorRepositorio = productorRepositorio;
+            _cerealRepositorio = cerealRepositorio;
         }
 
         private void FormDescargas_Load(object sender, EventArgs e)

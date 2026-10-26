@@ -6,9 +6,17 @@ namespace AccesoDatos.Repositorios
 {
     public class ReporteRepositorio : IReporteRepositorio
     {
+        private readonly IDbContextFactory<AcopioContext> _contextFactory;
+
+        public ReporteRepositorio(IDbContextFactory<AcopioContext> contextFactory)
+        {
+            _contextFactory = contextFactory;
+        }
+
         public List<ProductorKilos> RankingProductores()
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             List<ProductorKilos> ranking = context.Productores
                 .Include(p => p.Descargas)
                 .ToList()
@@ -32,7 +40,8 @@ namespace AccesoDatos.Repositorios
 
         public List<CerealKilos> KilosRecibidosPorCereal()
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             return context.Cereales
                 .Include(c => c.Descargas)
                 .ToList()
@@ -51,7 +60,8 @@ namespace AccesoDatos.Repositorios
 
         public List<DescargasMes> DescargasPorMes()
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             return context.Descargas
                 .ToList()
                 .GroupBy(d => new { d.Fecha.Year, d.Fecha.Month })
@@ -70,7 +80,8 @@ namespace AccesoDatos.Repositorios
 
         public List<DescargaRechazada> DescargasRechazadas()
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             return context.Descargas
                 .Include(d => d.Productor)
                 .Include(d => d.Cereal)
@@ -92,7 +103,8 @@ namespace AccesoDatos.Repositorios
 
         public List<HistorialDescarga> HistorialProductor(int productorId)
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             return context.Descargas
                 .Include(d => d.Cereal)
                 .Where(d => d.ProductorId == productorId)
@@ -113,7 +125,8 @@ namespace AccesoDatos.Repositorios
 
         public List<ClienteKilos> KilosDespachadosPorCliente()
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             return context.Clientes
                 .Include(c => c.Despachos)
                 .ToList()
@@ -130,7 +143,8 @@ namespace AccesoDatos.Repositorios
 
         public List<DespachoRealizado> DespachosRealizados()
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             return context.Despachos
                 .Include(d => d.Cliente)
                 .Include(d => d.Cereal)

@@ -5,13 +5,14 @@ namespace AppWinForms
 {
     public partial class FormCereales : Form
     {
-        private readonly ICerealRepositorio _repositorio = new CerealRepositorio();
+        private readonly ICerealRepositorio _repositorio;
 
         private int _idSeleccionado = 0;
 
-        public FormCereales()
+        public FormCereales(ICerealRepositorio repositorio)
         {
             InitializeComponent();
+            _repositorio = repositorio;
         }
 
         private void FormCereales_Load(object sender, EventArgs e)

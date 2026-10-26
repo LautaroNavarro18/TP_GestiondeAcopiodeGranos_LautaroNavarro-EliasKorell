@@ -1,46 +1,55 @@
+using Microsoft.Extensions.DependencyInjection;
+
 namespace AppWinForms
 {
     public partial class FormPrincipal : Form
     {
-        public FormPrincipal()
+        private readonly IServiceProvider _serviceProvider;
+
+        public FormPrincipal(IServiceProvider serviceProvider)
         {
             InitializeComponent();
+            _serviceProvider = serviceProvider;
+        }
+
+        private void AbrirFormulario<T>() where T : Form
+        {
+            using IServiceScope scope = _serviceProvider
+                .CreateScope();
+            T form = scope.ServiceProvider
+                .GetRequiredService<T>();
+            form
+                .ShowDialog();
         }
 
         private void productoresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using FormProductores form = new FormProductores();
-            form.ShowDialog();
+            AbrirFormulario<FormProductores>();
         }
 
         private void cerealesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using FormCereales form = new FormCereales();
-            form.ShowDialog();
+            AbrirFormulario<FormCereales>();
         }
 
         private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using FormClientes form = new FormClientes();
-            form.ShowDialog();
+            AbrirFormulario<FormClientes>();
         }
 
         private void descargasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using FormDescargas form = new FormDescargas();
-            form.ShowDialog();
+            AbrirFormulario<FormDescargas>();
         }
 
         private void despachosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using FormDespachos form = new FormDespachos();
-            form.ShowDialog();
+            AbrirFormulario<FormDespachos>();
         }
 
         private void reportesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using FormReportes form = new FormReportes();
-            form.ShowDialog();
+            AbrirFormulario<FormReportes>();
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)

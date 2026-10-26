@@ -5,9 +5,17 @@ namespace AccesoDatos.Repositorios
 {
     public class DescargaRepositorio : IDescargaRepositorio
     {
+        private readonly IDbContextFactory<AcopioContext> _contextFactory;
+
+        public DescargaRepositorio(IDbContextFactory<AcopioContext> contextFactory)
+        {
+            _contextFactory = contextFactory;
+        }
+
         public void Agregar(Descarga descarga)
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             Cereal cereal = context.Cereales
                 .Find(descarga.CerealId);
             descarga
@@ -20,7 +28,8 @@ namespace AccesoDatos.Repositorios
 
         public void Modificar(Descarga descarga)
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             Descarga original = context.Descargas
                 .AsNoTracking()
                 .FirstOrDefault(d => d.Id == descarga.Id);
@@ -40,7 +49,8 @@ namespace AccesoDatos.Repositorios
 
         public void Eliminar(int id)
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             Descarga descarga = context.Descargas
                 .Find(id);
             if (descarga != null)
@@ -85,7 +95,8 @@ namespace AccesoDatos.Repositorios
 
         public Descarga ObtenerPorId(int id)
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             return context.Descargas
                 .Include(d => d.Productor)
                 .Include(d => d.Cereal)
@@ -94,7 +105,8 @@ namespace AccesoDatos.Repositorios
 
         public List<Descarga> ObtenerTodos()
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             return context.Descargas
                 .Include(d => d.Productor)
                 .Include(d => d.Cereal)

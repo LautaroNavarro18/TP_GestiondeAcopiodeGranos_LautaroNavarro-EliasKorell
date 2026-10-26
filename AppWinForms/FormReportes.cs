@@ -4,14 +4,16 @@ namespace AppWinForms
 {
     public partial class FormReportes : Form
     {
-        private readonly IReporteRepositorio _repositorio = new ReporteRepositorio();
-        private readonly IProductorRepositorio _productorRepositorio = new ProductorRepositorio();
+        private readonly IReporteRepositorio _repositorio;
+        private readonly IProductorRepositorio _productorRepositorio;
 
         private const int ReporteHistorial = 4;
 
-        public FormReportes()
+        public FormReportes(IReporteRepositorio repositorio, IProductorRepositorio productorRepositorio)
         {
             InitializeComponent();
+            _repositorio = repositorio;
+            _productorRepositorio = productorRepositorio;
         }
 
         private void FormReportes_Load(object sender, EventArgs e)

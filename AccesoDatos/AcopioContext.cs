@@ -5,16 +5,16 @@ namespace AccesoDatos
 {
     public class AcopioContext : DbContext
     {
+        public static string CadenaConexion => $"Data Source={Path.Combine(AppContext.BaseDirectory, "acopio.db")}";
+
         public DbSet<Productor> Productores { get; set; }
         public DbSet<Cereal> Cereales { get; set; }
         public DbSet<Descarga> Descargas { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Despacho> Despachos { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public AcopioContext(DbContextOptions<AcopioContext> options) : base(options)
         {
-            string rutaBase = Path.Combine(AppContext.BaseDirectory, "acopio.db");
-            optionsBuilder.UseSqlite($"Data Source={rutaBase}");
         }
     }
 }

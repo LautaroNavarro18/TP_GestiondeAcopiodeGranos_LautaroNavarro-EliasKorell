@@ -5,13 +5,14 @@ namespace AppWinForms
 {
     public partial class FormProductores : Form
     {
-        private readonly IProductorRepositorio _repositorio = new ProductorRepositorio();
+        private readonly IProductorRepositorio _repositorio;
 
         private int _idSeleccionado = 0;
 
-        public FormProductores()
+        public FormProductores(IProductorRepositorio repositorio)
         {
             InitializeComponent();
+            _repositorio = repositorio;
         }
 
         private void FormProductores_Load(object sender, EventArgs e)

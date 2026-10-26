@@ -5,13 +5,14 @@ namespace AppWinForms
 {
     public partial class FormClientes : Form
     {
-        private readonly IClienteRepositorio _repositorio = new ClienteRepositorio();
+        private readonly IClienteRepositorio _repositorio;
 
         private int _idSeleccionado = 0;
 
-        public FormClientes()
+        public FormClientes(IClienteRepositorio repositorio)
         {
             InitializeComponent();
+            _repositorio = repositorio;
         }
 
         private void FormClientes_Load(object sender, EventArgs e)

@@ -5,9 +5,17 @@ namespace AccesoDatos.Repositorios
 {
     public class DespachoRepositorio : IDespachoRepositorio
     {
+        private readonly IDbContextFactory<AcopioContext> _contextFactory;
+
+        public DespachoRepositorio(IDbContextFactory<AcopioContext> contextFactory)
+        {
+            _contextFactory = contextFactory;
+        }
+
         public void Agregar(Despacho despacho)
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             int stock = CalculoStock
                 .StockDisponible(context, despacho.CerealId);
 
@@ -22,7 +30,8 @@ namespace AccesoDatos.Repositorios
 
         public void Modificar(Despacho despacho)
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             Despacho original = context.Despachos
                 .AsNoTracking()
                 .FirstOrDefault(d => d.Id == despacho.Id);
@@ -44,7 +53,8 @@ namespace AccesoDatos.Repositorios
 
         public void Eliminar(int id)
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             Despacho despacho = context.Despachos
                 .Find(id);
             if (despacho != null)
@@ -58,7 +68,8 @@ namespace AccesoDatos.Repositorios
 
         public Despacho ObtenerPorId(int id)
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             return context.Despachos
                 .Include(d => d.Cliente)
                 .Include(d => d.Cereal)
@@ -67,7 +78,8 @@ namespace AccesoDatos.Repositorios
 
         public List<Despacho> ObtenerTodos()
         {
-            using var context = new AcopioContext();
+            using var context = _contextFactory
+                .CreateDbContext();
             return context.Despachos
                 .Include(d => d.Cliente)
                 .Include(d => d.Cereal)

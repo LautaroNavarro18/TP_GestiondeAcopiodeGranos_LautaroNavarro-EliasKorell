@@ -5,16 +5,19 @@ namespace AppWinForms
 {
     public partial class FormDespachos : Form
     {
-        private readonly IDespachoRepositorio _repositorio = new DespachoRepositorio();
-        private readonly IClienteRepositorio _clienteRepositorio = new ClienteRepositorio();
-        private readonly ICerealRepositorio _cerealRepositorio = new CerealRepositorio();
+        private readonly IDespachoRepositorio _repositorio;
+        private readonly IClienteRepositorio _clienteRepositorio;
+        private readonly ICerealRepositorio _cerealRepositorio;
 
         private List<Despacho> _despachos = new List<Despacho>();
         private int _idSeleccionado = 0;
 
-        public FormDespachos()
+        public FormDespachos(IDespachoRepositorio repositorio, IClienteRepositorio clienteRepositorio, ICerealRepositorio cerealRepositorio)
         {
             InitializeComponent();
+            _repositorio = repositorio;
+            _clienteRepositorio = clienteRepositorio;
+            _cerealRepositorio = cerealRepositorio;
         }
 
         private void FormDespachos_Load(object sender, EventArgs e)
