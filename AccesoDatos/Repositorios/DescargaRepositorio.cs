@@ -17,7 +17,8 @@ namespace AccesoDatos.Repositorios
             using var context = _contextFactory
                 .CreateDbContext();
             Cereal cereal = context.Cereales
-                .Find(descarga.CerealId);
+                .AsNoTracking()
+                .FirstOrDefault(c => c.Id == descarga.CerealId);
             descarga
                 .DeterminarEstado(cereal.HumedadMaxima);
             context.Descargas
@@ -35,7 +36,8 @@ namespace AccesoDatos.Repositorios
                 .FirstOrDefault(d => d.Id == descarga.Id);
 
             Cereal cereal = context.Cereales
-                .Find(descarga.CerealId);
+                .AsNoTracking()
+                .FirstOrDefault(c => c.Id == descarga.CerealId);
             descarga
                 .DeterminarEstado(cereal.HumedadMaxima);
 
