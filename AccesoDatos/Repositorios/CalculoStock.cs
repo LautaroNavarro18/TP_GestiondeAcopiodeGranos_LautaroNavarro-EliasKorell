@@ -8,6 +8,7 @@ namespace AccesoDatos.Repositorios
         public static int StockDisponible(AcopioContext context, int cerealId)
         {
             Cereal cereal = context.Cereales
+                .AsNoTracking()
                 .Include(c => c.Descargas)
                 .Include(c => c.Despachos)
                 .FirstOrDefault(c => c.Id == cerealId);
