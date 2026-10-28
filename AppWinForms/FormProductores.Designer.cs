@@ -49,6 +49,7 @@
             lblNombre.TabIndex = 1;
             lblNombre.Text = "Nombre";
             txtNombre.Location = new Point(550, 35);
+            txtNombre.MaxLength = 100;
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(238, 27);
             txtNombre.TabIndex = 2;
@@ -59,6 +60,7 @@
             lblCuit.TabIndex = 3;
             lblCuit.Text = "CUIT";
             txtCuit.Location = new Point(550, 95);
+            txtCuit.MaxLength = 13;
             txtCuit.Name = "txtCuit";
             txtCuit.Size = new Size(238, 27);
             txtCuit.TabIndex = 4;
@@ -69,6 +71,7 @@
             lblTelefono.TabIndex = 5;
             lblTelefono.Text = "Teléfono";
             txtTelefono.Location = new Point(550, 155);
+            txtTelefono.MaxLength = 20;
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(238, 27);
             txtTelefono.TabIndex = 6;
@@ -79,6 +82,7 @@
             lblLocalidad.TabIndex = 7;
             lblLocalidad.Text = "Localidad";
             txtLocalidad.Location = new Point(550, 215);
+            txtLocalidad.MaxLength = 60;
             txtLocalidad.Name = "txtLocalidad";
             txtLocalidad.Size = new Size(238, 27);
             txtLocalidad.TabIndex = 8;

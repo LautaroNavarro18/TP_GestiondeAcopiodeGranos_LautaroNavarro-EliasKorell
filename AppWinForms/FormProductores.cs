@@ -58,9 +58,16 @@ namespace AppWinForms
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtCuit.Text))
+            if (!DatosValidos())
+                return;
+
+            string cuitFormateado = Validaciones
+                .FormatearCuit(txtCuit.Text.Trim());
+
+            if (_repositorio.ExisteCuit(cuitFormateado, _idSeleccionado))
             {
-                MessageBox.Show("El nombre y el CUIT son obligatorios.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Validaciones.Aviso("Ya existe un productor con ese CUIT.");
+                txtCuit.Focus();
                 return;
             }
 
@@ -68,7 +75,7 @@ namespace AppWinForms
             {
                 Id = _idSeleccionado,
                 Nombre = txtNombre.Text.Trim(),
-                Cuit = txtCuit.Text.Trim(),
+                Cuit = cuitFormateado,
                 Telefono = txtTelefono.Text.Trim(),
                 Localidad = txtLocalidad.Text.Trim()
             };
@@ -79,6 +86,46 @@ namespace AppWinForms
                 _repositorio.Modificar(productor);
 
             CargarGrilla();
+        }
+
+        private bool DatosValidos()
+        {
+            if (string.IsNullOrWhiteSpace(txtNombre.Text) || txtNombre.Text.Trim().Length < 3)
+            {
+                Validaciones.Aviso("El nombre es obligatorio y debe tener al menos 3 caracteres.");
+                txtNombre.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtCuit.Text))
+            {
+                Validaciones.Aviso("El CUIT es obligatorio.");
+                txtCuit.Focus();
+                return false;
+            }
+
+            if (!Validaciones.CuitValido(txtCuit.Text.Trim()))
+            {
+                Validaciones.Aviso("El CUIT ingresado no es válido.");
+                txtCuit.Focus();
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(txtTelefono.Text) && !Validaciones.TelefonoValido(txtTelefono.Text.Trim()))
+            {
+                Validaciones.Aviso("El teléfono ingresado no es válido.");
+                txtTelefono.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtLocalidad.Text))
+            {
+                Validaciones.Aviso("La localidad es obligatoria.");
+                txtLocalidad.Focus();
+                return false;
+            }
+
+            return true;
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)

@@ -62,5 +62,13 @@ namespace AccesoDatos.Repositorios
                 .Where(p => p.Activo)
                 .ToList();
         }
+
+        public bool ExisteCuit(string cuit, int idExcluido)
+        {
+            using var context = _contextFactory
+                .CreateDbContext();
+            return context.Productores
+                .Any(p => p.Cuit == cuit && p.Id != idExcluido);
+        }
     }
 }

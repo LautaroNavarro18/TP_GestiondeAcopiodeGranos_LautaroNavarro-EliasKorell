@@ -9,5 +9,6 @@ namespace AccesoDatos.Repositorios
         void Eliminar(int id);
         Productor ObtenerPorId(int id);
         List<Productor> ObtenerTodos();
+        bool ExisteCuit(string cuit, int idExcluido);
     }
 }
